@@ -8,7 +8,7 @@ import { estimateGi } from '@/lib/gi/estimate';
 
 const customIngredientSchema = z.object({
   name_en: z.string().min(1).max(200),
-  name_cs: z.string().max(200).nullable().optional(),
+  name_cs: z.string().min(1).max(200),
   category: z.string().max(200).nullable().optional(),
   kcal: z.number().min(0).nullable().optional(),
   protein_g: z.number().min(0).nullable().optional(),
@@ -48,4 +48,24 @@ export async function createCustomIngredient(input: z.infer<typeof customIngredi
 
   revalidatePath('/ingredients');
   redirect('/ingredients');
+}
+
+const updateNameSchema = z.object({
+  id: z.string().uuid(),
+  name_cs: z.string().min(1).max(200),
+});
+
+export async function updateIngredientCzechName(input: z.infer<typeof updateNameSchema>) {
+  const parsed = updateNameSchema.safeParse(input);
+  if (!parsed.success) return { error: 'Invalid input' };
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from('ingredients')
+    .update({ name_cs: parsed.data.name_cs })
+    .eq('id', parsed.data.id);
+
+  if (error) return { error: error.message };
+  revalidatePath('/ingredients');
+  return { success: true };
 }

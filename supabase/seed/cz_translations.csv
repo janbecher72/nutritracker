@@ -1,0 +1,300 @@
+priority,pattern,name_cs
+# Format: priority (higher = more specific, applied first), case-insensitive substring of name_en, Czech translation
+# Strategy: list specific patterns first (e.g. "ground beef") before generic ("beef")
+
+# === Fruits ===
+100,"bananas, raw",Banán syrový
+100,"bananas, dehydrated",Banán sušený
+100,"bananas, overripe",Banán přezrálý
+90,banana,Banán
+100,"apples, raw",Jablko syrové
+100,"apples, dried",Jablka sušená
+90,apple,Jablko
+100,"oranges, raw",Pomeranč
+90,orange,Pomeranč
+100,"pears, raw",Hruška
+90,pear,Hruška
+100,"strawberries, raw",Jahody
+100,strawberries,Jahody
+100,blueberries,Borůvky
+100,raspberries,Maliny
+100,blackberries,Ostružiny
+100,grapes,Hrozno
+100,watermelon,Vodní meloun
+100,cantaloupe,Žlutý meloun
+100,mango,Mango
+100,pineapple,Ananas
+100,peaches,Broskve
+90,peach,Broskev
+100,apricot,Meruňka
+100,plum,Švestka
+100,cherries,Třešně
+100,kiwi,Kiwi
+100,grapefruit,Grapefruit
+100,lemon,Citron
+100,lime,Limeta
+100,pomegranate,Granátové jablko
+100,figs,Fíky
+100,dates,Datle
+100,raisins,Rozinky
+100,avocado,Avokádo
+100,coconut,Kokos
+
+# === Vegetables ===
+100,"broccoli, raw",Brokolice syrová
+100,"broccoli, cooked",Brokolice vařená
+90,broccoli,Brokolice
+100,cauliflower,Květák
+100,"carrots, raw",Mrkev syrová
+100,"carrots, cooked",Mrkev vařená
+90,carrots,Mrkev
+90,carrot,Mrkev
+100,spinach,Špenát
+100,kale,Kapusta
+100,lettuce,Hlávkový salát
+100,cabbage,Zelí
+100,"tomatoes, raw",Rajčata
+100,tomato,Rajče
+100,cucumber,Okurka
+100,zucchini,Cuketa
+100,eggplant,Lilek
+100,"bell pepper",Paprika
+100,celery,Celer
+100,onions,Cibule
+90,onion,Cibule
+100,garlic,Česnek
+100,mushrooms,Houby
+90,mushroom,Houba
+100,asparagus,Chřest
+100,"green peas",Zelený hrášek
+90,peas,Hrášek
+100,"sweet corn",Kukuřice sladká
+90,corn,Kukuřice
+100,"sweet potato",Batáty
+100,"potatoes, baked",Brambory pečené
+100,"potatoes, boiled",Brambory vařené
+100,"potatoes, mashed",Bramborová kaše
+90,potato,Brambor
+100,beetroot,Červená řepa
+100,beets,Červená řepa
+100,radish,Ředkvička
+100,pumpkin,Dýně
+100,squash,Tykev
+
+# === Legumes ===
+100,"lentils, red",Čočka červená
+100,"lentils, green",Čočka zelená
+90,lentils,Čočka
+100,"chickpeas",Cizrna
+100,"garbanzo",Cizrna
+100,"black beans",Černé fazole
+100,"kidney beans",Červené fazole
+100,"white beans",Bílé fazole
+100,"pinto beans",Pinto fazole
+90,beans,Fazole
+100,soybeans,Sójové boby
+100,tofu,Tofu
+100,tempeh,Tempeh
+100,hummus,Hummus
+100,edamame,Edamame
+
+# === Grains ===
+100,"rice, white, glutinous",Rýže lepkavá
+100,"basmati rice",Basmati rýže
+100,"jasmine rice",Jasmínová rýže
+100,"brown rice",Hnědá rýže
+100,"wild rice",Divoká rýže
+100,"white rice",Bílá rýže
+100,"rice, white",Bílá rýže
+100,"rice, brown",Hnědá rýže
+90,rice,Rýže
+100,quinoa,Quinoa
+100,buckwheat,Pohanka
+100,bulgur,Bulgur
+100,couscous,Kuskus
+100,"oat bran",Ovesné otruby
+100,oats,Ovesné vločky
+100,oatmeal,Ovesná kaše
+100,barley,Ječmen
+100,millet,Proso
+100,"wheat flour",Pšeničná mouka
+
+# === Bread / pastries ===
+100,"whole wheat bread",Celozrnný chléb pšeničný
+100,"sourdough bread",Kváskový chléb
+100,"rye bread",Žitný chléb
+100,"white bread",Bílý chléb
+100,"wheat bread",Pšeničný chléb
+90,bread,Chléb
+100,bagel,Bagel
+100,croissant,Croissant
+100,muffin,Muffin
+100,danish pastry,Dánské pečivo
+100,pretzel,Preclík
+100,pizza,Pizza
+100,tortilla,Tortilla
+100,crackers,Krekry
+
+# === Pasta ===
+100,"spaghetti, whole wheat",Špagety celozrnné
+100,spaghetti,Špagety
+100,penne,Penne
+100,macaroni,Makarony
+100,"pasta, dry",Těstoviny suché
+100,"pasta, cooked",Těstoviny vařené
+90,pasta,Těstoviny
+
+# === Meat ===
+100,"chicken breast",Kuřecí prsa
+100,"chicken thigh",Kuřecí stehno
+100,"chicken, ground",Kuřecí mleté
+100,"chicken, whole",Kuře celé
+90,chicken,Kuřecí maso
+100,"turkey breast",Krůtí prsa
+100,"turkey, ground",Krůtí mleté
+90,turkey,Krůtí maso
+100,"beef, ground",Hovězí mleté
+100,"beef, ribeye",Hovězí ribeye
+100,"beef, sirloin",Hovězí svíčková
+100,"beef, tenderloin",Hovězí svíčková
+100,"beef, flank",Hovězí pupek
+100,"beef, brisket",Hovězí hrudí
+100,"beef, grass-fed",Hovězí z pastvy
+90,beef,Hovězí maso
+100,"pork loin",Vepřová panenka
+100,"pork chop",Vepřový kotlet
+100,"pork, ground",Vepřové mleté
+100,bacon,Slanina
+100,ham,Šunka
+90,pork,Vepřové maso
+100,lamb,Jehněčí maso
+100,veal,Telecí maso
+
+# === Fish & Seafood ===
+100,salmon,Losos
+100,tuna,Tuňák
+100,cod,Treska
+100,trout,Pstruh
+100,herring,Sleď
+100,sardines,Sardinky
+100,mackerel,Makrela
+100,shrimp,Krevety
+100,prawn,Krevety
+100,crab,Krab
+100,lobster,Humr
+100,squid,Kalamáry
+100,octopus,Chobotnice
+90,fish,Ryba
+
+# === Dairy & Eggs ===
+100,"milk, whole",Mléko plnotučné
+100,"milk, low-fat",Mléko nízkotučné
+100,"milk, skim",Mléko odtučněné
+100,"milk, fat-free",Mléko odtučněné
+90,milk,Mléko
+100,"yogurt, plain",Bílý jogurt
+100,"yogurt, greek",Řecký jogurt
+100,yogurt,Jogurt
+100,"cottage cheese",Tvaroh
+100,"cheese, cheddar",Sýr Čedar
+100,"cheese, mozzarella",Mozzarella
+100,"cheese, parmesan",Parmazán
+100,"cheese, feta",Feta
+100,"cheese, brie",Brie
+100,"cream cheese",Smetanový sýr
+90,cheese,Sýr
+100,butter,Máslo
+100,ghee,Ghí
+100,"egg, whole, raw",Vejce syrové
+100,"egg, whole, cooked",Vejce vařené
+100,"egg whites",Vaječné bílky
+100,"egg yolk",Vaječný žloutek
+90,egg,Vejce
+100,"sour cream",Zakysaná smetana
+100,cream,Smetana
+
+# === Plant milks ===
+100,"almond milk",Mandlové mléko
+100,"oat milk",Ovesné mléko
+100,"soy milk",Sójové mléko
+100,"rice milk",Rýžové mléko
+100,"coconut milk",Kokosové mléko
+
+# === Nuts & Seeds ===
+100,almonds,Mandle
+100,walnuts,Vlašské ořechy
+100,cashews,Kešu oříšky
+100,peanuts,Arašídy
+100,"peanut butter",Arašídové máslo
+100,pistachios,Pistácie
+100,hazelnuts,Lískové oříšky
+100,"pumpkin seeds",Dýňová semínka
+100,"sunflower seeds",Slunečnicová semínka
+100,"chia seeds",Chia semínka
+100,"flax seeds",Lněná semínka
+100,"sesame seeds",Sezamová semínka
+
+# === Oils & Fats ===
+100,"olive oil",Olivový olej
+100,"coconut oil",Kokosový olej
+100,"sunflower oil",Slunečnicový olej
+100,"canola oil",Řepkový olej
+100,"sesame oil",Sezamový olej
+90,oil,Olej
+
+# === Sweets & Sugar ===
+100,"dark chocolate",Hořká čokoláda
+100,"milk chocolate",Mléčná čokoláda
+90,chocolate,Čokoláda
+100,honey,Med
+100,"maple syrup",Javorový sirup
+100,"brown sugar",Třtinový cukr
+90,sugar,Cukr
+100,jam,Džem
+100,"ice cream",Zmrzlina
+
+# === Beverages ===
+100,coffee,Káva
+100,tea,Čaj
+100,"green tea",Zelený čaj
+100,"orange juice",Pomerančový džus
+100,"apple juice",Jablečný džus
+100,beer,Pivo
+100,wine,Víno
+100,cola,Kola
+100,"sports drink",Sportovní nápoj
+
+# === Protein supplements ===
+100,"whey protein",Syrovátkový protein
+100,"soy protein",Sójový protein
+100,"protein powder",Proteinový prášek
+
+# === Misc ===
+100,"baby food",Dětská výživa
+100,babyfood,Dětská výživa
+
+# === Patterns added after first run (singular forms, USDA naming variants) ===
+100,"cashew nut",Kešu oříšky
+100,"sunflower seed",Slunečnicová semínka
+100,"peppers, bell, green",Paprika zelená
+100,"peppers, bell, red",Paprika červená
+100,"peppers, bell, yellow",Paprika žlutá
+100,"peppers, bell",Paprika
+100,"grape leaves",Vinné listy
+100,"chickpea flour",Cizrnová mouka
+100,"flour, almond",Mandlová mouka
+100,"almond flour",Mandlová mouka
+100,"cherry juice",Třešňový džus
+100,"raspberry juice",Malinový džus
+100,"black bean soup",Polévka z černých fazolí
+100,"lentil soup",Čočková polévka
+90,soup,Polévka
+100,"candies, peanut bar",Arašídová tyčinka
+100,candies,Bonbóny
+100,"strawberry topping",Jahodová poleva
+100,topping,Poleva
+100,nachos,Nachos
+100,"shake mix",Proteinový nápoj v prášku
+100,"guavas, strawberry",Jahodová guava
+100,guavas,Guava
+100,guava,Guava

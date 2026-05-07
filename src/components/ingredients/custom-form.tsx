@@ -35,14 +35,14 @@ export function CustomIngredientForm() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.name_en.trim() && !form.name_cs.trim()) {
-      alert('Zadej alespoň jeden název.');
+    if (!form.name_cs.trim()) {
+      alert('Zadej český název.');
       return;
     }
     startTransition(async () => {
       const result = await createCustomIngredient({
         name_en: form.name_en.trim() || form.name_cs.trim(),
-        name_cs: form.name_cs.trim() || null,
+        name_cs: form.name_cs.trim(),
         category: form.category.trim() || null,
         kcal: num(form.kcal),
         protein_g: num(form.protein_g),
@@ -59,17 +59,30 @@ export function CustomIngredientForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-3 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label>Název EN</Label>
-          <Input value={form.name_en} onChange={(e) => set('name_en', e.target.value)} />
+        <div className="space-y-2 sm:col-span-2">
+          <Label>Název česky <span className="text-red-400">*</span></Label>
+          <Input
+            value={form.name_cs}
+            onChange={(e) => set('name_cs', e.target.value)}
+            placeholder="např. Tvarohové palačinky"
+            autoFocus
+          />
         </div>
-        <div className="space-y-2">
-          <Label>Název CZ</Label>
-          <Input value={form.name_cs} onChange={(e) => set('name_cs', e.target.value)} />
+        <div className="space-y-2 sm:col-span-2">
+          <Label className="text-zinc-500">Anglický název (volitelné)</Label>
+          <Input
+            value={form.name_en}
+            onChange={(e) => set('name_en', e.target.value)}
+            placeholder="Optional — pomáhá s vyhledáváním"
+          />
         </div>
         <div className="space-y-2 sm:col-span-2">
           <Label>Kategorie (volitelné)</Label>
-          <Input value={form.category} onChange={(e) => set('category', e.target.value)} />
+          <Input
+            value={form.category}
+            onChange={(e) => set('category', e.target.value)}
+            placeholder="např. Vegetables, Dairy and Egg Products"
+          />
         </div>
       </div>
 
