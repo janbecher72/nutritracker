@@ -19,7 +19,7 @@ export type GiSource =
   | 'user_override'
   | 'n/a';
 
-export type IngredientSource = 'usda' | 'custom';
+export type IngredientSource = 'usda' | 'custom' | 'off';
 
 export type MealCategory =
   | 'breakfast'
@@ -61,6 +61,9 @@ interface IngredientRow {
   gi_source: GiSource;
   portion_g: number | null;
   density_g_per_ml: number | null;
+  off_code: string | null;
+  image_url: string | null;
+  external_url: string | null;
   created_at: string;
   updated_at: string;
 }
