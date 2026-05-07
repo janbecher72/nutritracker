@@ -11,7 +11,10 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { estimateGi } from '../src/lib/gi/estimate';
-import 'dotenv/config';
+import { config as loadEnv } from 'dotenv';
+
+loadEnv({ path: '.env.local' });
+loadEnv({ path: '.env' });
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -99,11 +102,13 @@ const MACRO_COLUMNS = [
 interface UsdaFood {
   fdcId: number;
   description: string;
-  foodCategory?: string;
+  foodCategory?: { id: number; description: string } | string;
   foodNutrients: Array<{
-    nutrientId: number;
-    value: number;
-    unitName?: string;
+    nutrient?: { id: number; name: string; unitName?: string };
+    amount?: number;
+    // legacy "abridged" shape (search endpoint) — keep as fallback
+    nutrientId?: number;
+    value?: number;
   }>;
 }
 
@@ -241,17 +246,31 @@ async function fetchFoodDetails(fdcIds: number[]): Promise<UsdaFood[]> {
   return (await res.json()) as UsdaFood[];
 }
 
-function transformFood(food: UsdaFood): IngredientRow {
+function categoryOf(food: UsdaFood): string | null {
+  const c = food.foodCategory;
+  if (!c) return null;
+  if (typeof c === 'string') return c;
+  return c.description ?? null;
+}
+
+function transformFood(
+  food: UsdaFood,
+  seedByFdcId: Map<number, { gi: number; lowCi?: number; highCi?: number }>
+): IngredientRow {
   const macros: Record<string, number | null> = {};
   for (const col of MACRO_COLUMNS) macros[col] = null;
   const vitamins: Record<string, number> = {};
   const minerals: Record<string, number> = {};
 
   for (const nutrient of food.foodNutrients ?? []) {
-    const col = NUTRIENT_MAP[nutrient.nutrientId];
+    // Detail endpoint shape: { nutrient: { id }, amount }
+    // Search endpoint shape: { nutrientId, value }
+    const id = nutrient.nutrient?.id ?? nutrient.nutrientId;
+    const value = nutrient.amount ?? nutrient.value;
+    if (id == null || typeof value !== 'number') continue;
+
+    const col = NUTRIENT_MAP[id];
     if (!col) continue;
-    const value = nutrient.value;
-    if (typeof value !== 'number') continue;
 
     if (VITAMIN_KEYS.has(col)) {
       vitamins[col] = value;
@@ -262,22 +281,27 @@ function transformFood(food: UsdaFood): IngredientRow {
     }
   }
 
-  // Run GI estimation
-  const giResult = estimateGi({
-    category: food.foodCategory,
-    sugar_g: macros.sugar_g ?? 0,
-    starch_g: macros.starch_g ?? null,
-    carb_g: macros.carb_g ?? 0,
-    fiber_g: macros.fiber_g ?? 0,
-    fat_g: macros.fat_g ?? 0,
-    protein_g: macros.protein_g ?? 0,
-  });
+  const category = categoryOf(food);
+  const seedMatch = seedByFdcId.get(food.fdcId) ?? null;
+
+  const giResult = estimateGi(
+    {
+      category,
+      sugar_g: macros.sugar_g ?? 0,
+      starch_g: macros.starch_g ?? null,
+      carb_g: macros.carb_g ?? 0,
+      fiber_g: macros.fiber_g ?? 0,
+      fat_g: macros.fat_g ?? 0,
+      protein_g: macros.protein_g ?? 0,
+    },
+    seedMatch
+  );
 
   return {
     usda_fdc_id: food.fdcId,
     name_en: food.description,
     source: 'usda',
-    category: food.foodCategory ?? null,
+    category,
     kcal: macros.kcal,
     protein_g: macros.protein_g,
     carb_g: macros.carb_g,
@@ -327,8 +351,25 @@ async function main() {
     await new Promise((r) => setTimeout(r, 200));
   }
 
+  console.log(`Loading gi_seed for Tier 1 matching…`);
+  const { data: seeds, error: seedErr } = await supabase
+    .from('gi_seed')
+    .select('usda_fdc_id, gi_value, gi_low_ci, gi_high_ci');
+  if (seedErr) console.warn('Could not load gi_seed:', seedErr.message);
+  const seedByFdcId = new Map<number, { gi: number; lowCi?: number; highCi?: number }>();
+  for (const s of seeds ?? []) {
+    if (s.usda_fdc_id != null) {
+      seedByFdcId.set(s.usda_fdc_id, {
+        gi: Number(s.gi_value),
+        lowCi: s.gi_low_ci != null ? Number(s.gi_low_ci) : undefined,
+        highCi: s.gi_high_ci != null ? Number(s.gi_high_ci) : undefined,
+      });
+    }
+  }
+  console.log(`Loaded ${seedByFdcId.size} seed entries with USDA FDC IDs.`);
+
   console.log(`Transforming ${allFoods.length} foods…`);
-  const rows = allFoods.map(transformFood);
+  const rows = allFoods.map((f) => transformFood(f, seedByFdcId));
 
   console.log(`Upserting into ingredients (idempotent on usda_fdc_id)…`);
   const insertChunkSize = 50;

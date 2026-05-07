@@ -5,8 +5,8 @@ create or replace function public.search_ingredients(q text, max_results integer
 returns setof public.ingredients
 language sql
 stable
-security definer
-set search_path = public
+security invoker
+set search_path = public, extensions
 as $$
   select *
   from public.ingredients
